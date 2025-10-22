@@ -1,6 +1,6 @@
 page 60200 "Translation Prompt Dialog"
 {
-    Caption = 'AI Translation';
+    Caption = 'Handle Item Translations with Copilot';
     PageType = PromptDialog;
     Extensible = false;
     IsPreview = true;
@@ -8,38 +8,11 @@ page 60200 "Translation Prompt Dialog"
 
     layout
     {
-        area(Prompt)
-        {
-            field(UserPrompt; UserInput)
-            {
-                ApplicationArea = All;
-                Caption = 'Describe what you want to translate';
-                ToolTip = 'Enter instructions for the AI translation (e.g., "Translate to German", "Make it more formal").';
-                MultiLine = true;
-
-                trigger OnValidate()
-                begin
-                    // TODO: Attendees can add validation logic here
-                end;
-            }
-        }
         area(Content)
         {
-            field(SourceText; SourceText)
+            part(ItemTranslationProposal; "Items Transl. AI Proposal Sub")
             {
                 ApplicationArea = All;
-                Caption = 'Source Text';
-                ToolTip = 'The original text to be translated.';
-                MultiLine = true;
-                Editable = false;
-            }
-            field(TranslatedText; TranslatedText)
-            {
-                ApplicationArea = All;
-                Caption = 'AI Translation Result';
-                ToolTip = 'The AI-generated translation.';
-                MultiLine = true;
-                Editable = false;
             }
         }
     }
@@ -49,49 +22,68 @@ page 60200 "Translation Prompt Dialog"
         {
             systemaction(Generate)
             {
-                Caption = 'Generate';
-                ToolTip = 'Generate AI translation based on your prompt.';
+                Caption = 'Verify';
+                ToolTip = 'Verify Item Translations with Copilot.';
 
                 trigger OnAction()
                 begin
-                    // TODO: Attendees implement AI translation logic here
-                    TranslatedText := 'Translation will appear here...';
+                    RunGeneration();
                 end;
             }
             systemaction(OK)
             {
-                Caption = 'Keep it';
-                ToolTip = 'Accept this translation and close the dialog.';
+                Caption = 'Confirm';
+                ToolTip = 'Add selected Items to Substitutions.';
             }
             systemaction(Cancel)
             {
                 Caption = 'Discard';
-                ToolTip = 'Discard this translation and close the dialog.';
+                ToolTip = 'Discard Items proposed by Dynamics 365 Copilot.';
             }
             systemaction(Regenerate)
             {
                 Caption = 'Regenerate';
-                ToolTip = 'Generate a new translation with the same prompt.';
+                ToolTip = 'Regenerate Item Substitutions proposal with Dynamics 365 Copilot.';
+                trigger OnAction()
+                begin
+                    RunGeneration();
+                end;
             }
         }
     }
+
+    trigger OnOpenPage()
+    begin
+        CurrPage.Caption := 'Handle Item Translations with Copilot';
+
+        RunGeneration();
+    end;
+
+    trigger OnQueryClosePage(CloseAction: Action): Boolean
+    begin
+        if CloseAction = CloseAction::OK then begin
+            CurrPage.ItemTranslationProposal.Page.SaveTranslationsForItem(SourceItem);
+        end;
+    end;
+
+    local procedure RunGeneration()
+    begin
+
+
+    end;
+
+    procedure SetSourceItem(Item2: Record Item)
+    begin
+        SourceItem := Item2;
+    end;
+
+    procedure Load(var TmpItemTranslationAIProposal: Record "Item Translation AI Proposal")
+    begin
+        CurrPage.ItemTranslationProposal.page.Load(TmpItemTranslationAIProposal);
+
+        CurrPage.Update(false);
+    end;
+
     var
-        UserInput: Text;
-        SourceText: Text;
-        TranslatedText: Text;
-
-    procedure SetSourceText(NewSourceText: Text)
-    begin
-        SourceText := NewSourceText;
-    end;
-
-    procedure GetTranslatedText(): Text
-    begin
-        exit(TranslatedText);
-    end;
-
-    procedure SetDefaultPrompt(DefaultPrompt: Text)
-    begin
-        UserInput := DefaultPrompt;
-    end;
+        SourceItem: Record Item;
 }
