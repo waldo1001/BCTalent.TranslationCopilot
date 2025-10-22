@@ -14,7 +14,7 @@
     "applyToDevExtension": false
   },
   "features": [
-    "NOIMPLICITWITH"
+    "NoImplicitWith"
   ],
   "idRanges": [
     {
