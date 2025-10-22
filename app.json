@@ -1,0 +1,28 @@
+{
+  "id": "33f3910c-f1f2-4d12-a51c-f1cce8ea97bb",
+  "name": "Translation Copilot",
+  "publisher": "waldo",
+  "version": "1.0.0.0",
+  "runtime": "15.0",
+  "target": "Cloud",
+  "application": "26.0.0.0",
+  "platform": "26.0.40628.0",
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true,
+    "applyToDevExtension": false
+  },
+  "features": [
+    "NOIMPLICITWITH"
+  ],
+  "idRanges": [
+    {
+      "from": 60200,
+      "to": 60249
+    }
+  ],
+  "source": {
+    "repositoryUrl": "https://github.com/waldo1001/BCTalent.TranslationCopilot"
+  }
+}
