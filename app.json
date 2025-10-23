@@ -24,5 +24,12 @@
   ],
   "source": {
     "repositoryUrl": "https://github.com/waldo1001/BCTalent.TranslationCopilot"
-  }
+  },
+  "internalsVisibleTo": [
+    {
+      "id": "459c28a1-b375-4c55-b48e-141215173b9e",
+      "name": "Escape Room: Development.2",
+      "publisher": "waldo & AJ"
+    }
+  ]
 }

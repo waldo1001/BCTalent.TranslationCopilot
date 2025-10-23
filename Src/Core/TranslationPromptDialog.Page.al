@@ -5,6 +5,7 @@ page 60200 "Translation Prompt Dialog"
     Extensible = false;
     IsPreview = true;
     PromptMode = Prompt;
+    UsageCategory = None;
 
     layout
     {
@@ -67,8 +68,28 @@ page 60200 "Translation Prompt Dialog"
     end;
 
     local procedure RunGeneration()
+    var
+        Attempts: Integer;
+        GenerateItemTranslProposal: Codeunit "Generate Item Transl. Proposal";
+        TmpItemTranslationAIProposal: Record "Item Translation AI Proposal";
     begin
+        GenerateItemTranslProposal.SetItem(SourceItem);
 
+        TmpItemTranslationAIProposal.Reset();
+        TmpItemTranslationAIProposal.DeleteAll();
+
+        // Attempts := 0;
+        // while TmpItemTranslationAIProposal.IsEmpty and (Attempts < 5) do begin
+        GenerateItemTranslProposal.Run();
+        GenerateItemTranslProposal.GetResult(TmpItemTranslationAIProposal);
+
+        //     Attempts += 1;
+        // end;
+
+        // if (Attempts < 5) then begin
+        Load(TmpItemTranslationAIProposal);
+        // end else
+        //     Error('Something went wrong or nothing to translate. ' + GetLastErrorText);
 
     end;
 

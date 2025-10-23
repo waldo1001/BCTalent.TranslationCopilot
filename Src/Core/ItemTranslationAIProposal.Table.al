@@ -40,11 +40,6 @@ table 60200 "Item Translation AI Proposal"
             Caption = 'Suggested Translation';
             Editable = true;
         }
-        field(7; "Confidence"; Decimal)
-        {
-            Caption = 'Confidence';
-            Editable = false;
-        }
 
     }
 

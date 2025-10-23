@@ -2,7 +2,7 @@ pageextension 60201 "Item List Ext WLD" extends "Item List"
 {
     actions
     {
-        addfirst(processing)
+        addfirst(Prompting)
         {
             action(TranslateWithCopilot)
             {

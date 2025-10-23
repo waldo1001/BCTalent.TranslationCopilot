@@ -36,11 +36,6 @@ page 60201 "Items Transl. AI Proposal Sub"
                 {
                     ApplicationArea = All;
                 }
-                field(Confidence; Rec.Confidence)
-                {
-                    ApplicationArea = All;
-                    BlankZero = true;
-                }
                 field("Suggested Translation"; Rec."Suggested Translation")
                 {
                     ApplicationArea = All;
