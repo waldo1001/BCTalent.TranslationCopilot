@@ -33,7 +33,7 @@ codeunit 60206 "Item Translation Copilot Impl."
     internal procedure GetAccountName(): Text
     begin
         // Return empty for Microsoft managed resources - will use default infrastructure
-        exit('EscapeRooms');
+        exit('BCEscapeRooms');
     end;
 
     /// <summary>
@@ -43,7 +43,8 @@ codeunit 60206 "Item Translation Copilot Impl."
     /// <returns>API key for Azure OpenAI service</returns>
     internal procedure GetApiKey(): Text
     begin
-        // Return empty for Microsoft managed resources - will use default infrastructure
+        // NOTE: In production environments, API keys should be stored securely (e.g., Key Vault, isolated storage).
+        // This simplified approach is for demonstration and training purposes only.
         // TODO: Return with provided key
         exit('');
     end;
@@ -77,7 +78,7 @@ codeunit 60206 "Item Translation Copilot Impl."
         AzureOpenAI: Codeunit "Azure OpenAI";
         CopilotCapability: Enum "Copilot Capability";
     begin
-        //TODO: point to the correct capability so that this check works
+        //TODO: point to the correct capability so that this check works.  Uncommenting next line should be enough
         //CopilotCapability := enum::"Copilot Capability"::"Item Translations";
 
         if not IsEnabled() then
@@ -93,6 +94,7 @@ codeunit 60206 "Item Translation Copilot Impl."
     procedure GetSystemPrompt(LanguageText: Text) SystemPrompt: Text
     begin
         //TODO: Create a decent system prompt so the AI knows how to behave for Item Translations
+        //TIP: use an LLM to create the prompt
         // SystemPrompt := 'Line1';
         // SystemPrompt += 'Line2';
         SystemPrompt := '';
@@ -105,6 +107,7 @@ codeunit 60206 "Item Translation Copilot Impl."
     procedure GetUserPrompt(TextToTranslate: Text; LanguageText: Text) UserPrompt: Text
     begin
         //TODO: create a user prompt for the Item Translation
+        //TIP: use an LLM to create the prompt
         // UserPrompt := 'Line1';
         // UserPrompt += 'Line2';
         UserPrompt := '';
