@@ -96,6 +96,13 @@ page 60200 "Translation Prompt Dialog"
     procedure SetSourceItem(Item2: Record Item)
     begin
         SourceItem := Item2;
+
+        OnAfterSetSourceItem(SourceItem); //Merely here for testing the Escaperoom
+    end;
+
+    procedure GetSourceItem(): Record Item
+    begin
+        exit(SourceItem);
     end;
 
     procedure Load(var TmpItemTranslationAIProposal: Record "Item Translation AI Proposal")
@@ -107,4 +114,9 @@ page 60200 "Translation Prompt Dialog"
 
     var
         SourceItem: Record Item;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterSetSourceItem(var Item: Record Item) //Merely here for testing the Escaperoom
+    begin
+    end;
 }
